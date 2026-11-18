@@ -1,5 +1,7 @@
-// OPTIONAL: Paste your 3-question Google Form URL below to display a direct logging link on submit
-const GOOGLE_FORM_URL = "";
+const GOOGLE_FORM_BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdrZV6srmmJA_Pnm3XN-Zi0OzE67jX4JtVdE3pBVv0l1aLRFQ/viewform";
+const ENTRY_LITRES = "entry.481178912";
+const ENTRY_PLEDGE = "entry.850374082";
+const ENTRY_RATING = "entry.298455197";
 
 let selectedRating = 5;
 let lastCalculatedLitres = 0;
@@ -12,11 +14,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnReset = document.getElementById("btn-reset");
   const likertButtons = document.querySelectorAll(".likert-btn");
 
-  showerSlider.addEventListener("input", updateLabels);
-  bottlesSlider.addEventListener("input", updateLabels);
-  btnCalculate.addEventListener("click", calculateImpact);
-  btnSubmit.addEventListener("click", submitPledge);
-  btnReset.addEventListener("click", resetApp);
+  if (showerSlider) showerSlider.addEventListener("input", updateLabels);
+  if (bottlesSlider) bottlesSlider.addEventListener("input", updateLabels);
+  if (btnCalculate) btnCalculate.addEventListener("click", calculateImpact);
+  if (btnSubmit) btnSubmit.addEventListener("click", submitPledge);
+  if (btnReset) btnReset.addEventListener("click", resetApp);
 
   likertButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -40,10 +42,11 @@ function calculateImpact() {
   const weeklyBottles = parseFloat(document.getElementById("bottles").value);
   const messDailyLitres = parseFloat(document.querySelector('input[name="mess"]:checked').value);
 
-  // Standard Indian low-flow shower (~9 L/min); avoidable excess above 5-min benchmark
+
   const excessShowerMonthly = Math.max(0, showerMins - 5) * 9 * 30;
   const tapMonthly = tapDailyLitres * 30;
-  // ~3 L industrial water footprint per 1L PET bottle produced + wasted
+
+  
   const bottlesMonthly = Math.round(weeklyBottles * 3 * 4.3);
   const messMonthly = Math.round(messDailyLitres * 30);
 
@@ -69,17 +72,23 @@ function submitPledge() {
   const weeklySaveEst = Math.max(35, Math.round(lastCalculatedLitres * 0.25));
   const box = document.getElementById("confirmation-box");
 
-  let formLinkHtml = "";
-  if (GOOGLE_FORM_URL && GOOGLE_FORM_URL.startsWith("http")) {
-    formLinkHtml = `<br><br><a href="${GOOGLE_FORM_URL}" target="_blank" rel="noopener" style="color:#0369a1;font-weight:700;">Tap here to record this in our 10-second Google Form log →</a>`;
-  }
+  const params = new URLSearchParams({
+    usp: "pp_url",
+    [ENTRY_LITRES]: `${lastCalculatedLitres} L`,
+    [ENTRY_PLEDGE]: pledge,
+    [ENTRY_RATING]: `${selectedRating}/5`
+  });
+  const finalFormUrl = `${GOOGLE_FORM_BASE_URL}?${params.toString()}`;
 
   box.innerHTML = `
-    <strong>Pledge Recorded!</strong><br>
+    <strong>Pledge Ready!</strong><br>
     • <b>Monthly Footprint:</b> ${lastCalculatedLitres.toLocaleString("en-IN")} L<br>
-    • <b>7-Day Pledge:</b> ${pledge} (~${weeklySaveEst} L potential weekly saving)<br>
-    • <b>Awareness Rating:</b> ${selectedRating}/5
-    ${formLinkHtml}
+    • <b>7-Day Pledge:</b> ${pledge} (~${weeklySaveEst} L weekly saving)<br>
+    • <b>Awareness Rating:</b> ${selectedRating}/5<br><br>
+    <a href="${finalFormUrl}" target="_blank" rel="noopener" 
+       style="display:inline-block;background:#0284c7;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:700;">
+       Tap Here to Submit Your Pre-Filled Log (1-Click) →
+    </a>
   `;
   box.classList.remove("hidden");
 }
