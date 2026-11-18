@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AquaPulse BU | Campus Water Footprint &amp; SDG 6 Action Hub</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="badge">SDG 6 • CLEAN WATER &amp; SANITATION</div>
+      <h1>AquaPulse BU</h1>
+      <p>45-second campus water footprint check &amp; 7-day conservation pledge built for Bennett University students.</p>
+    </header>
+
+    <!-- SCREEN 1: HABIT CHECK -->
+    <main id="screen-input" class="body">
+      <div class="q-card">
+        <div class="q-title">1. On average, how many minutes does your daily hostel shower take?</div>
+        <div class="slider-row">
+          <input type="range" id="shower" min="3" max="15" value="8" />
+          <div class="val-pill" id="shower-val">8 mins</div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-title">2. Do you keep the washbasin tap running while brushing or washing your face?</div>
+        <div class="radio-group">
+          <label class="radio-option"><input type="radio" name="tap" value="0" checked /> Never (I turn it off while brushing/soaping)</label>
+          <label class="radio-option"><input type="radio" name="tap" value="12" /> Sometimes (1–2 times a day)</label>
+          <label class="radio-option"><input type="radio" name="tap" value="24" /> Almost always</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-title">3. How many single-use plastic water bottles (1L PET) do you buy on campus per week instead of using refill stations?</div>
+        <div class="slider-row">
+          <input type="range" id="bottles" min="0" max="14" value="3" />
+          <div class="val-pill" id="bottles-val">3 / week</div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-title">4. How often do you leave half-finished glasses of water in the mess/cafeteria?</div>
+        <div class="radio-group">
+          <label class="radio-option"><input type="radio" name="mess" value="0" checked /> Rarely / Never</label>
+          <label class="radio-option"><input type="radio" name="mess" value="0.4" /> 1–2 times a day</label>
+          <label class="radio-option"><input type="radio" name="mess" value="0.9" /> Almost every meal</label>
+        </div>
+      </div>
+
+      <button type="button" id="btn-calculate" class="btn">Calculate My Campus Water Impact →</button>
+    </main>
+
+    <!-- SCREEN 2: RESULTS & 7-DAY PLEDGE -->
+    <section id="screen-result" class="body hidden">
+      <div class="result-hero">
+        <div class="label">Estimated Monthly Avoidable Water Wastage</div>
+        <div class="number" id="total-litres">0 L</div>
+        <div class="sub" id="buckets-eq">Equivalent to 0 standard 15-litre hostel buckets per month</div>
+      </div>
+
+      <div class="breakdown">
+        <div class="b-item"><span>Excess Shower Flow (&gt;5 min)</span><strong id="b-shower">0 L/mo</strong></div>
+        <div class="b-item"><span>Open Washbasin Tap</span><strong id="b-tap">0 L/mo</strong></div>
+        <div class="b-item"><span>PET Bottle Water Footprint</span><strong id="b-bottles">0 L/mo</strong></div>
+        <div class="b-item"><span>Mess / Glass Wastage</span><strong id="b-mess">0 L/mo</strong></div>
+      </div>
+
+      <div class="policy-card">
+        <strong>Why This Matters (SDG 6.4 &amp; Jal Jeevan Mission)</strong>
+        In our Bennett University baseline survey (N=100), 60% of students flagged water scarcity as a top concern and 68% recognized the Jal Jeevan Mission—yet 72% felt campus sustainability engagement was incomplete. Under <b>SDG Target 6.4 (Water-Use Efficiency)</b>, small daily dorm &amp; refill habits save thousands of litres per hostel wing each semester.
+      </div>
+
+      <div class="q-card">
+        <div class="q-title">5. Pick one 7-Day Campus Water Pledge:</div>
+        <div class="radio-group">
+          <label class="radio-option"><input type="radio" name="pledge" value="Cap hostel showers at 5 minutes" checked /> Cap hostel showers at 5 minutes</label>
+          <label class="radio-option"><input type="radio" name="pledge" value="Turn off washbasin taps while brushing/soaping" /> Turn off washbasin taps while brushing/soaping</label>
+          <label class="radio-option"><input type="radio" name="pledge" value="Use campus refill stations only (zero PET bottles)" /> Use campus refill stations only (zero PET bottles)</label>
+          <label class="radio-option"><input type="radio" name="pledge" value="Finish every glass of drinking water in the mess" /> Finish every glass of drinking water in the mess</label>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-title">6. Did seeing your monthly litre estimate improve your awareness of campus water efficiency (SDG 6)? (1 = Low, 5 = High)</div>
+        <div class="likert-row" id="likert-group">
+          <button type="button" class="likert-btn" data-val="1">1</button>
+          <button type="button" class="likert-btn" data-val="2">2</button>
+          <button type="button" class="likert-btn" data-val="3">3</button>
+          <button type="button" class="likert-btn" data-val="4">4</button>
+          <button type="button" class="likert-btn active" data-val="5">5</button>
+        </div>
+      </div>
+
+      <button type="button" id="btn-submit" class="btn">Lock In My 7-Day Pledge &amp; Log Response ✓</button>
+      <button type="button" id="btn-reset" class="btn btn-secondary">← Recalculate Habits</button>
+
+      <div id="confirmation-box" class="summary-box hidden"></div>
+    </section>
+
+    <footer class="footer">
+      BU100 SDG Action Lab • Bennett University • Desk-Based Pilot Artefact (SDG 6)
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
