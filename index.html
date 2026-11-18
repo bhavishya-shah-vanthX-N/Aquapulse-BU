@@ -1,108 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AquaPulse BU | Campus Water Footprint &amp; SDG 6 Action Hub</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AquaPulse BU - Campus Water Pledge Log</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div class="container">
-    <header class="header">
-      <div class="badge">SDG 6 • CLEAN WATER &amp; SANITATION</div>
-      <h1>AquaPulse BU</h1>
-      <p>45-second campus water footprint check &amp; 7-day conservation pledge built for Bennett University students.</p>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col items-center py-8 px-4">
+
+  <div class="max-w-xl w-full bg-white shadow-lg rounded-2xl p-6 md:p-8">
+    <header class="text-center mb-6">
+      <h1 class="text-2xl md:text-3xl font-extrabold text-sky-600">💧 AquaPulse BU</h1>
+      <p class="text-sm text-slate-500 mt-1">Bennett University SDG 6 Campus Water Footprint & Pledge Log</p>
     </header>
 
-    <!-- SCREEN 1: HABIT CHECK -->
-    <main id="screen-input" class="body">
-      <div class="q-card">
-        <div class="q-title">1. On average, how many minutes does your daily hostel shower take?</div>
-        <div class="slider-row">
-          <input type="range" id="shower" min="3" max="15" value="8" />
-          <div class="val-pill" id="shower-val">8 mins</div>
+    <!-- SCREEN 1: INPUT FORM -->
+    <div id="screen-input" class="space-y-6">
+      
+      <!-- Student Identity -->
+      <div class="p-4 bg-sky-50 rounded-xl space-y-4 border border-sky-100">
+        <h2 class="font-bold text-sky-900 text-sm uppercase tracking-wide">Participant Details</h2>
+        <div>
+          <label class="block font-semibold text-sm text-slate-700 mb-1">Your Full Name</label>
+          <input type="text" id="user-name" placeholder="e.g. Bhavishya Shah" required
+                 class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 bg-white">
+        </div>
+        <div>
+          <label class="block font-semibold text-sm text-slate-700 mb-1">Enrollment ID</label>
+          <input type="text" id="user-enrol" placeholder="e.g. S26CSEU1578" required
+                 class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 bg-white">
         </div>
       </div>
 
-      <div class="q-card">
-        <div class="q-title">2. Do you keep the washbasin tap running while brushing or washing your face?</div>
-        <div class="radio-group">
-          <label class="radio-option"><input type="radio" name="tap" value="0" checked /> Never (I turn it off while brushing/soaping)</label>
-          <label class="radio-option"><input type="radio" name="tap" value="12" /> Sometimes (1–2 times a day)</label>
-          <label class="radio-option"><input type="radio" name="tap" value="24" /> Almost always</label>
+      <!-- Habit Sliders & Questions -->
+      <div class="space-y-4">
+        <div>
+          <label class="block font-semibold text-sm text-slate-700 mb-1">Daily Hostel Shower Time: <span id="shower-val" class="text-sky-600 font-bold">5 mins</span></label>
+          <input type="range" id="shower" min="1" max="25" value="5" class="w-accent accent-sky-600 w-full">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-sm text-slate-700 mb-1">Tap Running Habit (Wastage)</label>
+          <div class="grid grid-cols-3 gap-2 text-xs">
+            <label class="border p-2 rounded-lg text-center cursor-pointer hover:bg-slate-50"><input type="radio" name="tap" value="10" checked class="block mx-auto mb-1"> Low (~10L)</label>
+            <label class="border p-2 rounded-lg text-center cursor-pointer hover:bg-slate-50"><input type="radio" name="tap" value="30" class="block mx-auto mb-1"> Moderate (~30L)</label>
+            <label class="border p-2 rounded-lg text-center cursor-pointer hover:bg-slate-50"><input type="radio" name="tap" value="60" class="block mx-auto mb-1"> High (~60L)</label>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-sm text-slate-700 mb-1">Bottled Water Consumption: <span id="bottles-val" class="text-sky-600 font-bold">3 / week</span></label>
+          <input type="range" id="bottles" min="0" max="15" value="3" class="w-accent accent-sky-600 w-full">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-sm text-slate-700 mb-1">Mess Plate / Utensil Wash Wastage</label>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <label class="border p-2 rounded-lg text-center cursor-pointer hover:bg-slate-50"><input type="radio" name="mess" value="15" checked class="block mx-auto mb-1"> Careful (~15L/day)</label>
+            <label class="border p-2 rounded-lg text-center cursor-pointer hover:bg-slate-50"><input type="radio" name="mess" value="45" class="block mx-auto mb-1"> Careless (~45L/day)</label>
+          </div>
         </div>
       </div>
 
-      <div class="q-card">
-        <div class="q-title">3. How many single-use plastic water bottles (1L PET) do you buy on campus per week instead of using refill stations?</div>
-        <div class="slider-row">
-          <input type="range" id="bottles" min="0" max="14" value="3" />
-          <div class="val-pill" id="bottles-val">3 / week</div>
+      <button id="btn-calculate" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl transition shadow-md">
+        Calculate My Water Footprint →
+      </button>
+    </div>
+
+    <!-- SCREEN 2: RESULTS & PLEDGE -->
+    <div id="screen-result" class="hidden space-y-6">
+      <div class="bg-sky-50 border border-sky-100 rounded-2xl p-5 text-center">
+        <p class="text-xs uppercase tracking-wider font-bold text-sky-600 mb-1">Estimated Monthly Footprint</p>
+        <div id="total-litres" class="text-4xl font-black text-sky-900">0 L</div>
+        <p id="buckets-eq" class="text-xs text-sky-700 mt-2 font-medium"></p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3 text-xs">
+        <div class="bg-slate-100 p-3 rounded-xl">Shower Excess: <span id="b-shower" class="font-bold"></span></div>
+        <div class="bg-slate-100 p-3 rounded-xl">Tap Habit: <span id="b-tap" class="font-bold"></span></div>
+        <div class="bg-slate-100 p-3 rounded-xl">Bottled Water: <span id="b-bottles" class="font-bold"></span></div>
+        <div class="bg-slate-100 p-3 rounded-xl">Mess Wastage: <span id="b-mess" class="font-bold"></span></div>
+      </div>
+
+      <!-- Choose Pledge -->
+      <div>
+        <label class="block font-bold text-sm text-slate-700 mb-2">Choose Your 7-Day Campus Water Pledge</label>
+        <div class="space-y-2 text-xs">
+          <label class="block border p-3 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="pledge" value="Cap hostel showers strictly to 5 minutes" checked class="mr-2"> Cap hostel showers strictly to 5 minutes</label>
+          <label class="block border p-3 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="pledge" value="Switch entirely to reusable steel flask" class="mr-2"> Switch entirely to reusable steel flask</label>
+          <label class="block border p-3 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="pledge" value="Turn off running tap while brushing and washing" class="mr-2"> Turn off running tap while brushing and washing</label>
         </div>
       </div>
 
-      <div class="q-card">
-        <div class="q-title">4. How often do you leave half-finished glasses of water in the mess/cafeteria?</div>
-        <div class="radio-group">
-          <label class="radio-option"><input type="radio" name="mess" value="0" checked /> Rarely / Never</label>
-          <label class="radio-option"><input type="radio" name="mess" value="0.4" /> 1–2 times a day</label>
-          <label class="radio-option"><input type="radio" name="mess" value="0.9" /> Almost every meal</label>
+      <!-- Likert Rating -->
+      <div>
+        <label class="block font-bold text-sm text-slate-700 mb-2">Awareness Improvement Rating (1 to 5)</label>
+        <div class="flex justify-between gap-2">
+          <button type="button" data-val="1" class="likert-btn flex-1 border py-2 rounded-lg font-bold text-sm hover:bg-slate-100">1</button>
+          <button type="button" data-val="2" class="likert-btn flex-1 border py-2 rounded-lg font-bold text-sm hover:bg-slate-100">2</button>
+          <button type="button" data-val="3" class="likert-btn flex-1 border py-2 rounded-lg font-bold text-sm hover:bg-slate-100">3</button>
+          <button type="button" data-val="4" class="likert-btn flex-1 border py-2 rounded-lg font-bold text-sm hover:bg-slate-100">4</button>
+          <button type="button" data-val="5" class="likert-btn flex-1 border py-2 rounded-lg font-bold text-sm bg-sky-600 text-white active">5</button>
         </div>
       </div>
 
-      <button type="button" id="btn-calculate" class="btn">Calculate My Campus Water Impact →</button>
-    </main>
-
-    <!-- SCREEN 2: RESULTS & 7-DAY PLEDGE -->
-    <section id="screen-result" class="body hidden">
-      <div class="result-hero">
-        <div class="label">Estimated Monthly Avoidable Water Wastage</div>
-        <div class="number" id="total-litres">0 L</div>
-        <div class="sub" id="buckets-eq">Equivalent to 0 standard 15-litre hostel buckets per month</div>
+      <div class="flex gap-3">
+        <button id="btn-reset" class="w-1/3 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 rounded-xl transition text-sm">
+          ← Recalculate
+        </button>
+        <button id="btn-submit" class="w-2/3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition shadow-md text-sm">
+          Lock In My Pledge & Submit
+        </button>
       </div>
 
-      <div class="breakdown">
-        <div class="b-item"><span>Excess Shower Flow (&gt;5 min)</span><strong id="b-shower">0 L/mo</strong></div>
-        <div class="b-item"><span>Open Washbasin Tap</span><strong id="b-tap">0 L/mo</strong></div>
-        <div class="b-item"><span>PET Bottle Water Footprint</span><strong id="b-bottles">0 L/mo</strong></div>
-        <div class="b-item"><span>Mess / Glass Wastage</span><strong id="b-mess">0 L/mo</strong></div>
+      <!-- Confirmation Box with 1-Click Form Submit Link -->
+      <div id="confirmation-box" class="hidden p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-center text-xs text-emerald-900 space-y-2">
       </div>
+    </div>
 
-      <div class="policy-card">
-        <strong>Why This Matters (SDG 6.4 &amp; Jal Jeevan Mission)</strong>
-        In our Bennett University baseline survey (N=100), 60% of students flagged water scarcity as a top concern and 68% recognized the Jal Jeevan Mission—yet 72% felt campus sustainability engagement was incomplete. Under <b>SDG Target 6.4 (Water-Use Efficiency)</b>, small daily dorm &amp; refill habits save thousands of litres per hostel wing each semester.
-      </div>
-
-      <div class="q-card">
-        <div class="q-title">5. Pick one 7-Day Campus Water Pledge:</div>
-        <div class="radio-group">
-          <label class="radio-option"><input type="radio" name="pledge" value="Cap hostel showers at 5 minutes" checked /> Cap hostel showers at 5 minutes</label>
-          <label class="radio-option"><input type="radio" name="pledge" value="Turn off washbasin taps while brushing/soaping" /> Turn off washbasin taps while brushing/soaping</label>
-          <label class="radio-option"><input type="radio" name="pledge" value="Use campus refill stations only (zero PET bottles)" /> Use campus refill stations only (zero PET bottles)</label>
-          <label class="radio-option"><input type="radio" name="pledge" value="Finish every glass of drinking water in the mess" /> Finish every glass of drinking water in the mess</label>
-        </div>
-      </div>
-
-      <div class="q-card">
-        <div class="q-title">6. Did seeing your monthly litre estimate improve your awareness of campus water efficiency (SDG 6)? (1 = Low, 5 = High)</div>
-        <div class="likert-row" id="likert-group">
-          <button type="button" class="likert-btn" data-val="1">1</button>
-          <button type="button" class="likert-btn" data-val="2">2</button>
-          <button type="button" class="likert-btn" data-val="3">3</button>
-          <button type="button" class="likert-btn" data-val="4">4</button>
-          <button type="button" class="likert-btn active" data-val="5">5</button>
-        </div>
-      </div>
-
-      <button type="button" id="btn-submit" class="btn">Lock In My 7-Day Pledge &amp; Log Response ✓</button>
-      <button type="button" id="btn-reset" class="btn btn-secondary">← Recalculate Habits</button>
-
-      <div id="confirmation-box" class="summary-box hidden"></div>
-    </section>
-
-    <footer class="footer">
-      BU100 SDG Action Lab • Bennett University • Desk-Based Pilot Artefact (SDG 6)
-    </footer>
   </div>
 
   <script src="script.js"></script>
