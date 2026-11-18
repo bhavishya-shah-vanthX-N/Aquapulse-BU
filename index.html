@@ -4,122 +4,133 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AquaPulse BU - Campus Water Pledge Log</title>
-  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col items-center py-8 px-4">
+<body>
 
-  <div class="max-w-xl w-full bg-white shadow-lg rounded-2xl p-6 md:p-8">
-    <header class="text-center mb-6">
-      <h1 class="text-2xl md:text-3xl font-extrabold text-sky-600">💧 AquaPulse BU</h1>
-      <p class="text-sm text-slate-500 mt-1">Bennett University SDG 6 Campus Water Footprint & Pledge Log</p>
-    </header>
+  <div class="container">
+    <div class="header">
+      <span class="badge">Bennett University • SDG 6</span>
+      <h1>💧 AquaPulse BU</h1>
+      <p>Campus Water Footprint Calculator & Live Pledge Logger</p>
+    </div>
 
-    <!-- SCREEN 1: INPUT FORM -->
-    <div id="screen-input" class="space-y-6">
-      
-      <!-- Student Identity -->
-      <div class="p-4 bg-sky-50 rounded-xl space-y-4 border border-sky-100">
-        <h2 class="font-bold text-sky-900 text-sm uppercase tracking-wide">Participant Details</h2>
-        <div>
-          <label class="block font-semibold text-sm text-slate-700 mb-1">Your Full Name</label>
-          <input type="text" id="user-name" placeholder="e.g. Bhavishya Shah" required
-                 class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 bg-white">
-        </div>
-        <div>
-          <label class="block font-semibold text-sm text-slate-700 mb-1">Enrollment ID</label>
-          <input type="text" id="user-enrol" placeholder="e.g. S26CSEU1578" required
-                 class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 bg-white">
-        </div>
-      </div>
-
-      <!-- Habit Sliders & Questions -->
-      <div class="space-y-4">
-        <div>
-          <label class="block font-semibold text-sm text-slate-700 mb-1">Daily Hostel Shower Time: <span id="shower-val" class="text-sky-600 font-bold">5 mins</span></label>
-          <input type="range" id="shower" min="1" max="25" value="5" class="w-accent accent-sky-600 w-full">
-        </div>
-
-        <div>
-          <label class="block font-semibold text-sm text-slate-700 mb-1">Tap Running Habit (Wastage)</label>
-          <div class="grid grid-cols-3 gap-2 text-xs">
-            <label class="border p-2 rounded-lg text-center cursor-pointer hover:bg-slate-50"><input type="radio" name="tap" value="10" checked class="block mx-auto mb-1"> Low (~10L)</label>
-            <label class="border p-2 rounded-lg text-center cursor-pointer hover:bg-slate-50"><input type="radio" name="tap" value="30" class="block mx-auto mb-1"> Moderate (~30L)</label>
-            <label class="border p-2 rounded-lg text-center cursor-pointer hover:bg-slate-50"><input type="radio" name="tap" value="60" class="block mx-auto mb-1"> High (~60L)</label>
+    <div class="body">
+      <!-- SCREEN 1: INPUT FORM -->
+      <div id="screen-input">
+        
+        <!-- Student Identity -->
+        <div class="q-card" style="background: #f0f9ff; border-color: #bae6fd;">
+          <div class="q-title" style="color: #0369a1;">👤 Participant Details</div>
+          <div style="margin-bottom: 12px;">
+            <label style="display:block; font-size:13px; font-weight:600; margin-bottom:4px;">Full Name</label>
+            <input type="text" id="user-name" placeholder="e.g. Bhavishya Shah" required
+                   style="width:100%; padding:9px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:13.5k;">
+          </div>
+          <div>
+            <label style="display:block; font-size:13px; font-weight:600; margin-bottom:4px;">Enrollment ID</label>
+            <input type="text" id="user-enrol" placeholder="e.g. S26CSEU1578" required
+                   style="width:100%; padding:9px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:13.5px;">
           </div>
         </div>
 
-        <div>
-          <label class="block font-semibold text-sm text-slate-700 mb-1">Bottled Water Consumption: <span id="bottles-val" class="text-sky-600 font-bold">3 / week</span></label>
-          <input type="range" id="bottles" min="0" max="15" value="3" class="w-accent accent-sky-600 w-full">
-        </div>
-
-        <div>
-          <label class="block font-semibold text-sm text-slate-700 mb-1">Mess Plate / Utensil Wash Wastage</label>
-          <div class="grid grid-cols-2 gap-2 text-xs">
-            <label class="border p-2 rounded-lg text-center cursor-pointer hover:bg-slate-50"><input type="radio" name="mess" value="15" checked class="block mx-auto mb-1"> Careful (~15L/day)</label>
-            <label class="border p-2 rounded-lg text-center cursor-pointer hover:bg-slate-50"><input type="radio" name="mess" value="45" class="block mx-auto mb-1"> Careless (~45L/day)</label>
+        <!-- Q1: Shower -->
+        <div class="q-card">
+          <div class="q-title">1. Daily Hostel Shower Time</div>
+          <div class="slider-row">
+            <input type="range" id="shower" min="1" max="25" value="5">
+            <div id="shower-val" class="val-pill">5 mins</div>
           </div>
         </div>
+
+        <!-- Q2: Tap -->
+        <div class="q-card">
+          <div class="q-title">2. Tap Running Habit (Brushing / Washing)</div>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="tap" value="10" checked> Low (~10L daily wastage)</label>
+            <label class="radio-option"><input type="radio" name="tap" value="30"> Moderate (~30L daily wastage)</label>
+            <label class="radio-option"><input type="radio" name="tap" value="60"> High (~60L daily wastage)</label>
+          </div>
+        </div>
+
+        <!-- Q3: Bottles -->
+        <div class="q-card">
+          <div class="q-title">3. Single-Use Plastic Water Bottles</div>
+          <div class="slider-row">
+            <input type="range" id="bottles" min="0" max="15" value="3">
+            <div id="bottles-val" class="val-pill">3 / week</div>
+          </div>
+        </div>
+
+        <!-- Q4: Mess -->
+        <div class="q-card">
+          <div class="q-title">4. Mess Plate / Utensil Rinsing Habit</div>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="mess" value="15" checked> Careful (~15L daily)</label>
+            <label class="radio-option"><input type="radio" name="mess" value="45"> Careless / Running Tap (~45L daily)</label>
+          </div>
+        </div>
+
+        <button id="btn-calculate" class="btn">Calculate My Water Footprint →</button>
       </div>
 
-      <button id="btn-calculate" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl transition shadow-md">
-        Calculate My Water Footprint →
-      </button>
+      <!-- SCREEN 2: RESULTS & PLEDGE -->
+      <div id="screen-result" class="hidden">
+        <div class="result-hero">
+          <div class="label">Estimated Monthly Footprint</div>
+          <div id="total-litres" class="number">0 L</div>
+          <div id="buckets-eq" class="sub"></div>
+        </div>
+
+        <div class="breakdown">
+          <div class="b-item"><span>Shower Excess</span><strong id="b-shower">0 L/mo</strong></div>
+          <div class="b-item"><span>Tap Habit</span><strong id="b-tap">0 L/mo</strong></div>
+          <div class="b-item"><span>Bottled Water</span><strong id="b-bottles">0 L/mo</strong></div>
+          <div class="b-item"><span>Mess Wastage</span><strong id="b-mess">0 L/mo</strong></div>
+        </div>
+
+        <div class="policy-card">
+          <strong>💡 SDG 6 Impact Note</strong>
+          Reducing your footprint by just 25% saves roughly 1,000 litres a month on campus.
+        </div>
+
+        <div class="q-card">
+          <div class="q-title">Choose Your 7-Day Campus Water Pledge</div>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="pledge" value="Cap hostel showers strictly to 5 minutes" checked> Cap hostel showers strictly to 5 minutes</label>
+            <label class="radio-option"><input type="radio" name="pledge" value="Switch entirely to reusable steel flask"> Switch entirely to reusable steel flask</label>
+            <label class="radio-option"><input type="radio" name="pledge" value="Turn off running tap while brushing and washing"> Turn off running tap while brushing and washing</label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-title">Awareness Improvement Rating (1 to 5)</div>
+          <div class="likert-row">
+            <button type="button" data-val="1" class="likert-btn">1</button>
+            <button type="button" data-val="2" class="likert-btn">2</button>
+            <button type="button" data-val="3" class="likert-btn">3</button>
+            <button type="button" data-val="4" class="likert-btn">4</button>
+            <button type="button" data-val="5" class="likert-btn active">5</button>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+          <button id="btn-reset" class="btn btn-secondary" style="width: 35%;">← Recalculate</button>
+          <button id="btn-submit" class="btn" style="width: 65%; background: #059669;">Submit Directly to Google Sheet ✓</button>
+        </div>
+
+        <!-- Success Message Box -->
+        <div id="confirmation-box" class="hidden summary-box"></div>
+      </div>
     </div>
 
-    <!-- SCREEN 2: RESULTS & PLEDGE -->
-    <div id="screen-result" class="hidden space-y-6">
-      <div class="bg-sky-50 border border-sky-100 rounded-2xl p-5 text-center">
-        <p class="text-xs uppercase tracking-wider font-bold text-sky-600 mb-1">Estimated Monthly Footprint</p>
-        <div id="total-litres" class="text-4xl font-black text-sky-900">0 L</div>
-        <p id="buckets-eq" class="text-xs text-sky-700 mt-2 font-medium"></p>
-      </div>
-
-      <div class="grid grid-cols-2 gap-3 text-xs">
-        <div class="bg-slate-100 p-3 rounded-xl">Shower Excess: <span id="b-shower" class="font-bold"></span></div>
-        <div class="bg-slate-100 p-3 rounded-xl">Tap Habit: <span id="b-tap" class="font-bold"></span></div>
-        <div class="bg-slate-100 p-3 rounded-xl">Bottled Water: <span id="b-bottles" class="font-bold"></span></div>
-        <div class="bg-slate-100 p-3 rounded-xl">Mess Wastage: <span id="b-mess" class="font-bold"></span></div>
-      </div>
-
-      <!-- Choose Pledge -->
-      <div>
-        <label class="block font-bold text-sm text-slate-700 mb-2">Choose Your 7-Day Campus Water Pledge</label>
-        <div class="space-y-2 text-xs">
-          <label class="block border p-3 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="pledge" value="Cap hostel showers strictly to 5 minutes" checked class="mr-2"> Cap hostel showers strictly to 5 minutes</label>
-          <label class="block border p-3 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="pledge" value="Switch entirely to reusable steel flask" class="mr-2"> Switch entirely to reusable steel flask</label>
-          <label class="block border p-3 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="pledge" value="Turn off running tap while brushing and washing" class="mr-2"> Turn off running tap while brushing and washing</label>
-        </div>
-      </div>
-
-      <!-- Likert Rating -->
-      <div>
-        <label class="block font-bold text-sm text-slate-700 mb-2">Awareness Improvement Rating (1 to 5)</label>
-        <div class="flex justify-between gap-2">
-          <button type="button" data-val="1" class="likert-btn flex-1 border py-2 rounded-lg font-bold text-sm hover:bg-slate-100">1</button>
-          <button type="button" data-val="2" class="likert-btn flex-1 border py-2 rounded-lg font-bold text-sm hover:bg-slate-100">2</button>
-          <button type="button" data-val="3" class="likert-btn flex-1 border py-2 rounded-lg font-bold text-sm hover:bg-slate-100">3</button>
-          <button type="button" data-val="4" class="likert-btn flex-1 border py-2 rounded-lg font-bold text-sm hover:bg-slate-100">4</button>
-          <button type="button" data-val="5" class="likert-btn flex-1 border py-2 rounded-lg font-bold text-sm bg-sky-600 text-white active">5</button>
-        </div>
-      </div>
-
-      <div class="flex gap-3">
-        <button id="btn-reset" class="w-1/3 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 rounded-xl transition text-sm">
-          ← Recalculate
-        </button>
-        <button id="btn-submit" class="w-2/3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition shadow-md text-sm">
-          Lock In My Pledge & Submit
-        </button>
-      </div>
-
-      <!-- Confirmation Box with 1-Click Form Submit Link -->
-      <div id="confirmation-box" class="hidden p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-center text-xs text-emerald-900 space-y-2">
-      </div>
+    <div class="footer">
+      Bennett University • Department of Computer Science & Engineering (2026)
     </div>
-
   </div>
+
+  <!-- HIDDEN IFRAME FOR SILENT BACKGROUND SUBMISSION -->
+  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
   <script src="script.js"></script>
 </body>
